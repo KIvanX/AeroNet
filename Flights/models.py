@@ -1,13 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Airport(models.Model):
     name = models.CharField(max_length=100)
-    country = models.CharField(max_length=30)
     city = models.CharField(max_length=40)
+    coordinates = models.CharField(max_length=40)
 
     def __str__(self):
-        return self.name
+        return self.name + ' ' + self.city
 
 
 class Aircraft(models.Model):
@@ -34,7 +35,7 @@ class Flight(models.Model):
     aircraft = models.ForeignKey(Aircraft, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return str(self.departure_airport) + '-' + str(self.arrival_airport)
+        return str(self.departure_airport.city) + '-' + str(self.arrival_airport.city)
 
 
 class Ticket(models.Model):
@@ -46,7 +47,7 @@ class Ticket(models.Model):
 
 
 class Booking(models.Model):
-    user = models.ForeignKey('authorization.User', null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     price = models.IntegerField(null=True)
 
