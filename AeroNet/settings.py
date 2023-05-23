@@ -39,9 +39,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 EMAIL_ADDRESS = env('EMAIL_ADDRESS')
 EMAIL_PASSWORD = env('EMAIL_PASSWORD')
-smtpObj = smtplib.SMTP('smtp.yandex.ru', 587)
-smtpObj.starttls()
-smtpObj.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
 
 # Application definition
 
@@ -115,6 +112,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'AeroNet.wsgi.application'
+ASGI_APPLICATION = 'AeroNet.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -190,5 +188,14 @@ SWAGGER_SETTINGS = {
             'in': 'header',
             'name': 'Authorization'
         }
+    },
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
     },
 }

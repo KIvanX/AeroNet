@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from django.core.handlers.wsgi import WSGIRequest
@@ -9,7 +10,7 @@ from django.shortcuts import redirect
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, permissions
-from AeroNet.settings import smtpObj, EMAIL_ADDRESS
+from AeroNet.settings import EMAIL_ADDRESS, EMAIL_PASSWORD
 from django.contrib.auth.hashers import make_password
 from authorization.serializers import *
 from AeroNet import settings
@@ -68,6 +69,10 @@ def send_email(email, subject, text):
 
     msgText = MIMEText(f'<h3>{text}</h3>', 'html')
     msg.attach(msgText)
+
+    smtpObj = smtplib.SMTP('smtp.yandex.ru', 587)
+    smtpObj.starttls()
+    smtpObj.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
 
     smtpObj.sendmail(msg['From'], msg['To'], msg.as_string().encode())
 
