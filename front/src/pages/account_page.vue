@@ -1,6 +1,6 @@
 <template>
   <div id="form">
-    <p><img :src="'http://127.0.0.1:8000/auth/user/image/' + user.id" alt="image" :key="img_id"></p>
+    <p><img :src="'http://127.0.0.1:8010/auth/user/image/' + user.id" alt="image" :key="img_id"></p>
     <p><input @change='new_file' type="file"></p>
     <p><label>Имя </label><input type="text" v-model="user.username"></p>
     <p><label>Email </label><input type="email" v-model="user.email"></p>

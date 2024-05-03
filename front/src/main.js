@@ -18,7 +18,7 @@ const store =  createStore({
     actions: {
         async get_flight(_, id) {
             try {
-                return (await axios.get('http://127.0.0.1:8000/api/flights/' + id + '/')).data;
+                return (await axios.get('http://127.0.0.1:8010/api/flights/' + id + '/')).data;
             } catch (e) {
                 console.log(e)
             }
@@ -27,11 +27,11 @@ const store =  createStore({
             commit('SET_FILTER', filter)
         },
         async get_flights(_, filter) {
-            return (await axios.get('http://127.0.0.1:8000/api/flights/by/', {params: filter})).data;
+            return (await axios.get('http://127.0.0.1:8010/api/flights/by/', {params: filter})).data;
         },
         async get_tickets(_, flight_id) {
             try {
-                return (await axios.get('http://127.0.0.1:8000/api/tickets/by/',
+                return (await axios.get('http://127.0.0.1:8010/api/tickets/by/',
                     {params: {'flight_id': flight_id}})).data;
             } catch (e) {
                 console.log(e)
@@ -39,7 +39,7 @@ const store =  createStore({
         },
         async get_bookings(_, user_id) {
             try {
-                return (await axios.get('http://127.0.0.1:8000/api/bookings/by/',
+                return (await axios.get('http://127.0.0.1:8010/api/bookings/by/',
                     {params: {'user_id': user_id}})).data;
             } catch (e) {
                 console.log(e)
@@ -47,7 +47,7 @@ const store =  createStore({
         },
         async user_register({dispatch}, data) {
             try {
-                await axios.post('http://127.0.0.1:8000/auth/users/', data).then(async () => {
+                await axios.post('http://127.0.0.1:8010/auth/users/', data).then(async () => {
                         await dispatch("auth_user", {
                             'username': data.username,
                             'password': data.password
@@ -60,7 +60,7 @@ const store =  createStore({
         },
         async edit_username(_, data) {
             try {
-                await axios.post('http://127.0.0.1:8000/auth/users/set_username/', data)
+                await axios.post('http://127.0.0.1:8010/auth/users/set_username/', data)
             } catch (e) {
                 return false
             }
@@ -68,14 +68,14 @@ const store =  createStore({
         },
         async edit_email(_, data) {
             try {
-                return (await axios.post('http://127.0.0.1:8000/auth/user/set_email/', data)).data.result
+                return (await axios.post('http://127.0.0.1:8010/auth/user/set_email/', data)).data.result
             } catch (e) {
                 return 'ERROR'
             }
         },
         async edit_password(_, data) {
             try {
-                await axios.post('http://127.0.0.1:8000/auth/users/set_password/', data)
+                await axios.post('http://127.0.0.1:8010/auth/users/set_password/', data)
             } catch (e) {
                 console.log(e)
                 return false
@@ -84,7 +84,7 @@ const store =  createStore({
         },
         async auth_user({commit}, data) {
             try {
-                await axios.post('http://127.0.0.1:8000/auth/jwt/create/', data).then(
+                await axios.post('http://127.0.0.1:8010/auth/jwt/create/', data).then(
                     (response) => {
                         commit('AUTH_ACCOUNT', response.data);
                     })
@@ -97,27 +97,27 @@ const store =  createStore({
             commit('EXIT_ACCOUNT')
         },
         async upload_user_image(_, data) {
-            return (await axios.post('http://127.0.0.1:8000/auth/user/image/' + data.user_id, data.file)).data.result;
+            return (await axios.post('http://127.0.0.1:8010/auth/user/image/' + data.user_id, data.file)).data.result;
         },
         async get_account_data() {
-            return (await axios.get('http://127.0.0.1:8000/auth/users/me/')).data;
+            return (await axios.get('http://127.0.0.1:8010/auth/users/me/')).data;
         },
         set_auth_via_VK({commit}, status) {
             commit('AUTH_VIA_VK', status)
         },
         async auth_via_VK(_, data) {
-            return (await axios.post('http://127.0.0.1:8000/auth/user/via/vk', data)).data.result;
+            return (await axios.post('http://127.0.0.1:8010/auth/user/via/vk', data)).data.result;
         },
         async get_recovering_code(_, email) {
-            return (await axios.get('http://127.0.0.1:8000/auth/user/recovering_password/',
+            return (await axios.get('http://127.0.0.1:8010/auth/user/recovering_password/',
                 {'params': {'email': email}})).data.result;
         },
         async set_recovered_password(_, data) {
-            return (await axios.post('http://127.0.0.1:8000/auth/user/recovering_password/',
+            return (await axios.post('http://127.0.0.1:8010/auth/user/recovering_password/',
                 {'headers': data})).data.result;
         },
         async refresh_token({commit, getters}) {
-            let data = (await axios.post('http://127.0.0.1:8000/auth/jwt/refresh/',
+            let data = (await axios.post('http://127.0.0.1:8010/auth/jwt/refresh/',
                 {'headers': getters.get_refresh()})).data;
             commit('AUTH_ACCOUNT', data)
         }
