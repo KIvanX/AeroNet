@@ -1,0 +1,35 @@
+version: '3'
+
+volumes:
+  pg_data:
+  media:
+  static:
+
+services:
+  db:
+    image: postgres:14.10
+    hostname: db
+    env_file: .env
+    ports:
+      - 5433:5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: always
+    links:
+      - db:db
+
+  frontend:
+    build: front/.
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    restart: always

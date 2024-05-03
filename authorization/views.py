@@ -53,7 +53,7 @@ class SuccessView(View):
         ticket = Ticket.objects.get(id=request.GET.get('ticket_id', 0))
         user = User.objects.get(id=request.GET.get('user_id', 0))
         Booking(price=10000, ticket=ticket, user=user).save()
-        return redirect(f'http://localhost:8080/flights/{ticket.flight_id}')
+        return redirect(f'http://localhost:8080/')
 
 
 class CancelledView(View):
