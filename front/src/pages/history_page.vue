@@ -33,7 +33,7 @@ export default {
   methods: {
     async del_ticket(ticket_id) {
       await this.delete_ticket(ticket_id);
-      window.location.href = 'http://45.147.177.245:8080/';
+      //window.location.href = 'http://45.147.177.245:8080/';
     },
     ...mapActions(['get_account_data', 'get_bookings', 'delete_ticket'])
   }

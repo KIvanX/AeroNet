@@ -76,7 +76,7 @@ class TicketAPIViewSet(viewsets.ModelViewSet):
 
 
 class DeleteTicketView(View):
-    def post(self, request, pk):
+    def get(self, request, pk):
         Ticket.objects.get(pk=pk).delete()
         return JsonResponse({'results': 'true'})
 
