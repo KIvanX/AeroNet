@@ -23,6 +23,13 @@ const store =  createStore({
                 console.log(e)
             }
         },
+        async execute(_, url) {
+            try {
+                await axios.get(url);
+            } catch (e) {
+                console.log(e)
+            }
+        },
         set_filter({commit}, filter) {
             commit('SET_FILTER', filter)
         },
