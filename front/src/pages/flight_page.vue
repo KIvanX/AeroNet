@@ -37,7 +37,7 @@ export default {
   methods: {
     async payment() {
       if (this.is_auth && this.selected_ticket) {
-        let link = 'http://localhost:8000/success/?';
+        let link = 'http://45.147.177.245:8010/success/?';
         link += 'ticket_id=' + this.selected_ticket + '&';
         link += 'user_id=' + (await this.get_account_data()).id
         window.location.href = link;
