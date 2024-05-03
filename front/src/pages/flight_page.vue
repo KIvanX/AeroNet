@@ -39,8 +39,9 @@ export default {
       if (this.is_auth && this.selected_ticket) {
         let link = 'http://45.147.177.245:8010/success/?';
         link += 'ticket_id=' + this.selected_ticket + '&';
-        link += 'user_id=' + (await this.get_account_data()).id
-        window.location.href = link;
+        link += 'user_id=' + (await this.get_account_data()).id;
+        await axios.get(link);
+        window.location.href = 'http://45.147.177.245:8080/';
       } else if (this.selected_ticket) alert('Чтобы забронировать билет, нужно авторизоваться');
       else alert('Выберите место, которое хотите забронировать');
     },

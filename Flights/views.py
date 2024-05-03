@@ -2,6 +2,7 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
+from django.views import View
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -72,6 +73,12 @@ class TicketAPIViewSet(viewsets.ModelViewSet):
         busy_tickets = Booking.objects.all().values('ticket_id')
         tickets = Ticket.objects.filter(flight_id=request.GET.get('flight_id', '')).filter(~Q(id__in=busy_tickets))
         return Response(TicketSerializer(tickets, many=True).data)
+
+
+class DeleteTicketView(View):
+    def post(self, request, pk):
+        Ticket.objects.get(pk=pk).delete()
+        return JsonResponse({'results': 'true'})
 
 
 class BookingAPIViewSet(viewsets.ModelViewSet):

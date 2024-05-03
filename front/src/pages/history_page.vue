@@ -5,7 +5,9 @@
     <div v-for="booking in bookings" v-bind:key="booking.id">
       <router-link :to="'/flights/' + booking.ticket.flight.id">
         <div class="card">
-          <h3>{{booking.ticket.flight.departure_airport.city}} - {{booking.ticket.flight.arrival_airport.city}}</h3><br>
+          <h3>{{booking.ticket.flight.departure_airport.city}} - {{booking.ticket.flight.arrival_airport.city}}</h3>
+          <button @click="del_ticket(booking.id)"> Удалить </button>
+          <br>
         </div>
       </router-link>
     </div>
@@ -29,7 +31,11 @@ export default {
     console.log(this.bookings)
   },
   methods: {
-    ...mapActions(['get_account_data', 'get_bookings'])
+    async del_ticket(ticket_id) {
+      await this.delete_ticket(ticket_id);
+      window.location.href = 'http://45.147.177.245:8080/';
+    },
+    ...mapActions(['get_account_data', 'get_bookings', 'delete_ticket'])
   }
 }
 </script>
