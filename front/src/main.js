@@ -44,9 +44,9 @@ const store =  createStore({
                 console.log(e)
             }
         },
-        async delete_ticket(_, ticket_id) {
+        async delete_booking(_, booking_id) {
             try {
-                await axios.get('http://45.147.177.245:8010/delete_ticket/' + ticket_id);
+                await axios.get('http://45.147.177.245:8010/delete_booking/' + booking_id);
             } catch (e) {
                 console.log(e)
             }

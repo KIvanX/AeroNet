@@ -33,5 +33,5 @@ urlpatterns = [
     path('success/', SuccessView.as_view()),
     path('cancelled/', CancelledView.as_view()),
 
-    path('delete_ticket/<int:pk>', DeleteTicketView.as_view()),
+    path('delete_booking/<int:pk>', DeleteBookingView.as_view()),
 ] + doc_urls

@@ -75,9 +75,9 @@ class TicketAPIViewSet(viewsets.ModelViewSet):
         return Response(TicketSerializer(tickets, many=True).data)
 
 
-class DeleteTicketView(View):
+class DeleteBookingView(View):
     def get(self, request, pk):
-        Ticket.objects.get(pk=pk).delete()
+        Booking.objects.get(pk=pk).delete()
         return JsonResponse({'results': 'true'})
 
 
